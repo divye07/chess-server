@@ -1,1 +1,1 @@
-web: java -cp target/classes com.chess.network.ChessServer 
+web: java -jar target/chess-server-1.0-SNAPSHOT.jar 
