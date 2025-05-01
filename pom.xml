@@ -46,6 +46,11 @@
             <artifactId>websocket-jetty-server</artifactId>
             <version>11.0.20</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-jetty-client</artifactId>
+            <version>11.0.20</version>
+        </dependency>
     </dependencies>
 
     <build>
