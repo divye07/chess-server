@@ -1,1 +1,1 @@
-web: java -jar target/chess-server-1.0-SNAPSHOT.jar 
+web: chmod +x mvnw && ./mvnw clean package && java -jar target/chess-server-1.0-SNAPSHOT.jar 
