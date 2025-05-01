@@ -1,6 +1,7 @@
 package com.chess.network;
 
 import com.chess.models.Game;
+import org.java_websocket.server.WebSocketServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -45,6 +46,11 @@ public class ChessServer {
             System.out.println("Server is listening on all network interfaces");
             System.out.println("To connect from another device, use this computer's IP address and port " + port);
             System.out.println("Press Ctrl+C to stop the server");
+
+            // Start WebSocket server on the same port as the main server (for Render compatibility)
+            ChessWebSocketServer wsServer = new ChessWebSocketServer(port);
+            wsServer.start();
+            System.out.println("WebSocket server started on port " + port);
 
             while (isRunning) {
                 try {
