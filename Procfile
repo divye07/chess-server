@@ -1,0 +1,1 @@
+web: java -cp target/classes com.chess.network.ChessServer 

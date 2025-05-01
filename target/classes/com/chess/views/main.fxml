@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.chess.controllers.MainController"
+      spacing="10"
+      style="-fx-background-color: #f0f0f0; -fx-padding: 20;">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Java Chess" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Button text="New Game" onAction="#startNewGame"/>
+        <Button text="Join Game" onAction="#joinGame"/>
+    </HBox>
+
+    <GridPane fx:id="chessBoard" 
+              hgap="0" 
+              vgap="0"
+              style="-fx-border-color: black; -fx-border-width: 2px;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Game Code:"/>
+        <TextField fx:id="gameCodeField" promptText="Enter game code"/>
+        <Button text="Connect" onAction="#connectToGame"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Status:"/>
+        <Label fx:id="statusLabel" text="Waiting to start..."/>
+    </HBox>
+
+</VBox> 
