@@ -12,6 +12,7 @@ RUN chmod +x mvnw
 
 # Build the project
 RUN ./mvnw clean package
+RUN ./mvnw dependency:copy-dependencies
 
 # Expose the port your app runs on (default 5000, can be overridden by PORT env)
 EXPOSE 5000
