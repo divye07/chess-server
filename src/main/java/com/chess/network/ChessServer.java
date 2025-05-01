@@ -25,46 +25,15 @@ public class ChessServer {
         String portStr = System.getenv("PORT");
         int port = portStr != null ? Integer.parseInt(portStr) : DEFAULT_PORT;
 
-        // Add shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Shutting down server...");
-            isRunning = false;
-            threadPool.shutdown();
-            try {
-                if (!threadPool.awaitTermination(SHUTDOWN_TIMEOUT, TimeUnit.SECONDS)) {
-                    threadPool.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                threadPool.shutdownNow();
-            }
-            System.out.println("Server shutdown complete");
-        }));
+        ChessWebSocketServer wsServer = new ChessWebSocketServer(port);
+        wsServer.start();
+        System.out.println("WebSocket server started on port " + port);
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            serverSocket.setReuseAddress(true);
-            System.out.println("Chess Server started on port " + port);
-            System.out.println("Server is listening on all network interfaces");
-            System.out.println("To connect from another device, use this computer's IP address and port " + port);
-            System.out.println("Press Ctrl+C to stop the server");
-
-            // Start WebSocket server on the same port as the main server (for Render compatibility)
-            ChessWebSocketServer wsServer = new ChessWebSocketServer(port);
-            wsServer.start();
-            System.out.println("WebSocket server started on port " + port);
-
-            while (isRunning) {
-                try {
-                    Socket clientSocket = serverSocket.accept();
-                    System.out.println("New client connected from: " + clientSocket.getInetAddress().getHostAddress());
-                    threadPool.execute(new ClientHandler(clientSocket));
-                } catch (IOException e) {
-                    if (isRunning) {
-                        System.err.println("Error accepting client connection: " + e.getMessage());
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Server error: " + e.getMessage());
+        // Keep the main thread alive
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            System.err.println("Server interrupted: " + e.getMessage());
         }
     }
 
