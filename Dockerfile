@@ -16,5 +16,5 @@ RUN ./mvnw clean package
 # Expose the port your app runs on (default 5000, can be overridden by PORT env)
 EXPOSE 5000
 
-# Run the server
-CMD ["java", "-jar", "target/chess-server-1.0-SNAPSHOT.jar"] 
+# Run the Jetty WebSocket server
+CMD ["java", "-cp", "target/classes:target/dependency/*", "com.chess.network.JettyWebSocketServer"] 
